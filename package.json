@@ -1,0 +1,24 @@
+{
+  "name": "1.-bill-docs-reminder-system",
+  "version": "1.0.0",
+  "description": "Centralized system to manage all your bills, document renewals, and monthly reminders in one smart dashboard.",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon ./src/index.js"
+  },
+  "author": "Gurudeep Pandey",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^8.13.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
