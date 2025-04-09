@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaySphere - Documents</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/documents.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="./Images/whiteBgColor.png" alt="" width="120px">
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="/dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/bills">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Bills</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/documents">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Mobile Top Sidebar -->
+        <div class="top-mobile-sidebar">
+            <div class="logo">
+                <img src="./Images/whiteBgColor.png" alt="" width="120px">
+            </div>
+            <i class="fas fa-bars but"></i>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1>Documents</h1>
+                    <p>Manage and track your important documents</p>
+                </div>
+                <a class="add-new-btn" href="/add-document">
+                    <i class="fas fa-plus"></i> Add New Document
+                </a>
+            </div>
+
+            <div class="search-filter-container">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search documents..." class="search-input">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn"><i class="fas fa-filter"></i></button>
+                    <button class="sort-btn"><i class="fas fa-sort"></i></button>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="all">All Documents (8)</button>
+                <button class="tab-btn" data-tab="valid">Valid (0)</button>
+                <button class="tab-btn" data-tab="expired">Expired (8)</button>
+            </div>
+
+            <div class="documents-grid">
+                <!-- Document Card 1 -->
+                <div class="document-card">
+                    <div class="document-card-header">
+                        <div class="document-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="document-title">
+                            <h3>Driver License</h3>
+                            <p>Personal</p>
+                        </div>
+                        <button class="document-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="document-card-body">
+                        <div class="document-expiry">
+                            <i class="far fa-calendar"></i>
+                            <span>Expires: Nov 10, 2023</span>
+                        </div>
+                    </div>
+                    <div class="document-card-footer">
+                        <span class="document-status expired">Expired</span>
+                    </div>
+                </div>
+
+                <!-- Document Card 2 -->
+                <div class="document-card">
+                    <div class="document-card-header">
+                        <div class="document-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="document-title">
+                            <h3>Car Insurance</h3>
+                            <p>Insurance</p>
+                        </div>
+                        <button class="document-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="document-card-body">
+                        <div class="document-expiry">
+                            <i class="far fa-calendar"></i>
+                            <span>Expires: Dec 5, 2023</span>
+                        </div>
+                    </div>
+                    <div class="document-card-footer">
+                        <span class="document-status expired">Expired</span>
+                    </div>
+                </div>
+
+                <!-- Document Card 3 -->
+                <div class="document-card">
+                    <div class="document-card-header">
+                        <div class="document-icon">
+                            <i class="fas fa-passport"></i>
+                        </div>
+                        <div class="document-title">
+                            <h3>Passport</h3>
+                            <p>Travel</p>
+                        </div>
+                        <button class="document-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="document-card-body">
+                        <div class="document-expiry">
+                            <i class="far fa-calendar"></i>
+                            <span>Expires: Jun 20, 2024</span>
+                        </div>
+                    </div>
+                    <div class="document-card-footer">
+                        <span class="document-status expired">Expired</span>
+                    </div>
+                </div>
+
+                <!-- Document Card 4 -->
+                <div class="document-card">
+                    <div class="document-card-header">
+                        <div class="document-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="document-title">
+                            <h3>Health Insurance</h3>
+                            <p>Insurance</p>
+                        </div>
+                        <button class="document-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="document-card-body">
+                        <div class="document-expiry">
+                            <i class="far fa-calendar"></i>
+                            <span>Expires: Sep 30, 2023</span>
+                        </div>
+                    </div>
+                    <div class="document-card-footer">
+                        <span class="document-status expired">Expired</span>
+                    </div>
+                </div>
+
+                <!-- Document Card 5 -->
+                <div class="document-card">
+                    <div class="document-card-header">
+                        <div class="document-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="document-title">
+                            <h3>Vehicle Registration</h3>
+                            <p>Vehicle</p>
+                        </div>
+                        <button class="document-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="document-card-body">
+                        <div class="document-expiry">
+                            <i class="far fa-calendar"></i>
+                            <span>Expires: Oct 15, 2023</span>
+                        </div>
+                    </div>
+                    <div class="document-card-footer">
+                        <span class="document-status expired">Expired</span>
+                    </div>
+                </div>
+
+                <!-- Document Card 6 -->
+                <div class="document-card">
+                    <div class="document-card-header">
+                        <div class="document-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="document-title">
+                            <h3>Home Warranty</h3>
+                            <p>Home</p>
+                        </div>
+                        <button class="document-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="document-card-body">
+                        <div class="document-expiry">
+                            <i class="far fa-calendar"></i>
+                            <span>Expires: Dec 31, 2023</span>
+                        </div>
+                    </div>
+                    <div class="document-card-footer">
+                        <span class="document-status expired">Expired</span>
+                    </div>
+                </div>
+
+                <!-- Document Card 7 -->
+                <div class="document-card">
+                    <div class="document-card-header">
+                        <div class="document-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="document-title">
+                            <h3>Work Permit</h3>
+                            <p>Work</p>
+                        </div>
+                        <button class="document-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="document-card-body">
+                        <div class="document-expiry">
+                            <i class="far fa-calendar"></i>
+                            <span>Expires: Feb 28, 2024</span>
+                        </div>
+                    </div>
+                    <div class="document-card-footer">
+                        <span class="document-status expired">Expired</span>
+                    </div>
+                </div>
+
+                <!-- Document Card 8 -->
+                <div class="document-card">
+                    <div class="document-card-header">
+                        <div class="document-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <div class="document-title">
+                            <h3>Gym Membership</h3>
+                            <p>Fitness</p>
+                        </div>
+                        <button class="document-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="document-card-body">
+                        <div class="document-expiry">
+                            <i class="far fa-calendar"></i>
+                            <span>Expires: Oct 1, 2023</span>
+                        </div>
+                    </div>
+                    <div class="document-card-footer">
+                        <span class="document-status expired">Expired</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/documents.js"></script>
+</body>
+</html>

@@ -4,9 +4,11 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
+import expressLayouts from "express-ejs-layouts";
 
 import connectDB from "./utils/db.js";
-import expressLayouts from "express-ejs-layouts";
+import pagesRoutes from "./routes/pages.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 dotenv.config();
 
@@ -23,6 +25,7 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -36,17 +39,12 @@ console.log("Views folder:", app.get("views"));
 console.log("Static folder path:", path.join(__dirname, "../public"));
 
 
+// html pages routes
+app.use("/", pagesRoutes);
 
-app.get("/", (req, res) => {
-    res.render("pages/home");
-})
-app.get("/login", (req, res) => {
-    res.render("pages/login");
-})
-app.get("/register", (req, res) => {
-    res.render("pages/register");
-})
 
+// user routes
+app.use("/api/v1/user", userRoutes);
 
 
 app.listen(port, () => {

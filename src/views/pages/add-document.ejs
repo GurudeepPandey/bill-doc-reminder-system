@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #f3f4f6;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h1 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-header p {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: white;
+        }
+
+        input:focus, select:focus {
+            border-color: #0070f3;
+            box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+        }
+
+        .upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-text {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .upload-text span {
+            color: #0070f3;
+            cursor: pointer;
+        }
+
+        .upload-text span:hover {
+            text-decoration: underline;
+        }
+
+        .upload-format {
+            color: #9ca3af;
+            font-size: 0.75rem;
+        }
+
+        .file-info {
+            margin-top: 0.5rem;
+            color: #10b981;
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .button {
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .cancel-button {
+            background-color: white;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .cancel-button:hover {
+            background-color: #f9fafb;
+        }
+
+        .submit-button {
+            background-color: #0070f3;
+            color: white;
+            border: none;
+        }
+
+        .submit-button:hover {
+            background-color: #0060df;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .date-input {
+            position: relative;
+        }
+
+        .date-input input {
+            padding-right: 2.5rem;
+        }
+
+        .date-icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            pointer-events: none;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-container">
+        <button class="close-button" onclick="window.location.href='/documents'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+            </svg>
+        </button>
+
+        <div class="modal-header">
+            <h1>Add New Document</h1>
+            <p>Enter the details for your new document.</p>
+        </div>
+
+        <form id="documentForm">
+            <div class="form-group">
+                <label for="documentName">Document Name</label>
+                <input type="text" id="documentName" placeholder="e.g., Driver License" required>
+            </div>
+
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date</label>
+                <div class="date-input">
+                    <input type="date" id="expiryDate" placeholder="dd-mm-yyyy" required>
+                    <svg class="date-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                        <line x1="16" x2="16" y1="2" y2="6"></line>
+                        <line x1="8" x2="8" y1="2" y2="6"></line>
+                        <line x1="3" x2="21" y1="10" y2="10"></line>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="identification">Identification</option>
+                    <option value="financial">Financial</option>
+                    <option value="medical">Medical</option>
+                    <option value="legal">Legal</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Upload Document (Optional)</label>
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" x2="12" y1="3" y2="15"></line>
+                    </svg>
+                    <p class="upload-text">
+                        <span id="uploadButton">Click to upload</span> or drag and drop
+                    </p>
+                    <p class="upload-format">PDF, PNG, JPG (MAX. 10MB)</p>
+                    <p class="file-info" id="fileInfo"></p>
+                </div>
+                <input type="file" id="fileInput" accept=".pdf,.png,.jpg">
+            </div>
+
+            <div class="form-group">
+                <label for="reminder">Send Reminder Before</label>
+                <select id="reminder" required>
+                    <option value="30">30 days before</option>
+                    <option value="7">7 days before</option>
+                    <option value="14">14 days before</option>
+                    <option value="60">60 days before</option>
+                    <option value="90">90 days before</option>
+                </select>
+            </div>
+
+            <div class="button-container">
+                <button type="button" class="button cancel-button" onclick="window.location.href='/documents'">Cancel</button>
+                <button type="submit" class="button submit-button">Add Document</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // File upload handling
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadButton = document.getElementById('uploadButton');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+
+        // Click on upload area to trigger file input
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Handle file selection
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                const file = e.target.files[0];
+                const fileSize = (file.size / 1024 / 1024).toFixed(2); // Convert to MB
+                
+                fileInfo.textContent = `${file.name} (${fileSize} MB)`;
+                fileInfo.style.display = 'block';
+            }
+        });
+
+        // Handle drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#0070f3';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#d1d5db';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#d1d5db';
+            
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                fileInput.files = e.dataTransfer.files;
+                const file = e.dataTransfer.files[0];
+                const fileSize = (file.size / 1024 / 1024).toFixed(2); // Convert to MB
+                
+                fileInfo.textContent = `${file.name} (${fileSize} MB)`;
+                fileInfo.style.display = 'block';
+            }
+        });
+
+        // Form submission
+        document.getElementById('documentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const documentName = document.getElementById('documentName').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const category = document.getElementById('category').value;
+            const reminder = document.getElementById('reminder').value;
+            const file = fileInput.files[0];
+            
+            // Here you would typically send this data to your server
+            console.log('Document added:', { documentName, expiryDate, category, reminder, file });
+            
+            // For demo purposes, show an alert
+            alert('Document form submitted!\nDocument: ' + documentName);
+        });
+    </script>
+</body>
+</html>

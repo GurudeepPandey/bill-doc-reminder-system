@@ -47,28 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Counter animation
-    // const counters = document.querySelectorAll('.counter');
-    // const speed = 200;
-
-    // counters.forEach(counter => {
-    //     const animate = () => {
-    //         const value = +counter.getAttribute('data-target');
-    //         const data = +counter.innerText;
-
-    //         const time = value / speed;
-
-    //         if (data < value) {
-    //             counter.innerText = Math.ceil(data + time);
-    //             setTimeout(animate, 1);
-    //         } else {
-    //             counter.innerText = value;
-    //         }
-    //     }
-
-    //     animate();
-    // });
-
     // Dashboard tabs
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabPanes = document.querySelectorAll('.tab-pane');
@@ -134,4 +112,11 @@ document.addEventListener('DOMContentLoaded', function () {
             item.classList.toggle('active');
         });
     });
+
+    const getStartedBtn = document.querySelector(".get-started")
+    console.log(getStartedBtn)
+    getStartedBtn.addEventListener("click", () => {
+        console.log("clicked")
+        window.location.href = "/register";
+    })
 });

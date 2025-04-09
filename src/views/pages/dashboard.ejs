@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaySphere - Dashboard</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="./Images/whiteBgColor.png" alt="" width="120px">
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="/dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/bills">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Bills</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/documents">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Mobile Top Sidebar -->
+        <div class="top-mobile-sidebar">
+            <div class="logo">
+                <img src="./Images/whiteBgColor.png" alt="" width="120px">
+            </div>
+            <i class="fas fa-bars but"></i>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- User Profile Banner -->
+            <div class="user-banner">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dashboard-section-UrTQ7AAvQEyv0Awbm1lHYC81jdcUg2.png"
+                            alt="User Avatar">
+                    </div>
+                    <div class="user-details">
+                        <h2>Alex Johnson</h2>
+                        <p>alex@example.com</p>
+                        <span class="user-badge">Premium User</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Total Monthly Bills</h3>
+                        <p>Sum of all recurring monthly expenses</p>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="amount">$2380.00</h2>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Paid This Month</h3>
+                        <p>Bills paid in current month</p>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="amount">$0.00</h2>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Due Bills</h3>
+                        <p>Bills pending payment</p>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="amount">$1380.00</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Column Layout -->
+            <div class="dashboard-columns">
+                <!-- Left Column -->
+                <div class="dashboard-column">
+                    <!-- Recent Payments -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Payments</h3>
+                            <p>Last 4 bill payments</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="payment-list">
+                                <li class="payment-item">
+                                    <div class="payment-icon paid">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <div class="payment-details">
+                                        <h4>Electricity Bill</h4>
+                                        <p>2023-11-05</p>
+                                    </div>
+                                    <div class="payment-amount">$120.00</div>
+                                </li>
+                                <li class="payment-item">
+                                    <div class="payment-icon paid">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <div class="payment-details">
+                                        <h4>Internet</h4>
+                                        <p>2023-10-28</p>
+                                    </div>
+                                    <div class="payment-amount">$59.99</div>
+                                </li>
+                                <li class="payment-item">
+                                    <div class="payment-icon paid">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <div class="payment-details">
+                                        <h4>Water Bill</h4>
+                                        <p>2023-10-15</p>
+                                    </div>
+                                    <div class="payment-amount">$45.50</div>
+                                </li>
+                                <li class="payment-item">
+                                    <div class="payment-icon paid">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <div class="payment-details">
+                                        <h4>Phone Bill</h4>
+                                        <p>2023-10-10</p>
+                                    </div>
+                                    <div class="payment-amount">$35.00</div>
+                                </li>
+                            </ul>
+                            <div class="card-footer">
+                                <a href="bills.html" class="view-all">View All Payments</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bill Distribution -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Bill Distribution</h3>
+                            <p>Breakdown by category</p>
+                        </div>
+                        <div class="card-body chart-container">
+                            <canvas id="billDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="dashboard-column">
+                    <!-- Due Bills -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Due Bills</h3>
+                            <p>Bills that require payment</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="bill-list">
+                                <li class="bill-item">
+                                    <div class="bill-icon overdue">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div class="bill-details">
+                                        <h4>Rent</h4>
+                                        <p>Overdue by 524 days</p>
+                                    </div>
+                                    <div class="bill-amount">$1200.00</div>
+                                </li>
+                                <li class="bill-item">
+                                    <div class="bill-icon overdue">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div class="bill-details">
+                                        <h4>Car Insurance</h4>
+                                        <p>Overdue by 310 days</p>
+                                    </div>
+                                    <div class="bill-amount">$180.00</div>
+                                </li>
+                            </ul>
+                            <div class="card-footer">
+                                <a href="bills.html" class="view-all">View All Bills</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Bills -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Upcoming Bills</h3>
+                            <p>Bills due in the future</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="bill-list">
+                                <li class="bill-item">
+                                    <div class="bill-icon upcoming">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="bill-details">
+                                        <h4>Electricity</h4>
+                                        <p>Due in 520 days</p>
+                                    </div>
+                                    <div class="bill-amount">$120.00</div>
+                                </li>
+                                <li class="bill-item">
+                                    <div class="bill-icon upcoming">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="bill-details">
+                                        <h4>Rent</h4>
+                                        <p>Due in 524 days</p>
+                                    </div>
+                                    <div class="bill-amount">$1200.00</div>
+                                </li>
+                                <li class="bill-item">
+                                    <div class="bill-icon upcoming">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="bill-details">
+                                        <h4>Internet</h4>
+                                        <p>Due in 510 days</p>
+                                    </div>
+                                    <div class="bill-amount">$60.00</div>
+                                </li>
+                                <li class="bill-item">
+                                    <div class="bill-icon upcoming">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="bill-details">
+                                        <h4>Gym Membership</h4>
+                                        <p>Due in 497 days</p>
+                                    </div>
+                                    <div class="bill-amount">$49.99</div>
+                                </li>
+                            </ul>
+                            <div class="card-footer">
+                                <a href="bills.html" class="view-all">View All Upcoming Bills</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expiring Documents -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Expiring Documents</h3>
+                            <p>Documents that require attention soon</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="document-list">
+                                <li class="document-item">
+                                    <div class="document-icon expiring">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div class="document-details">
+                                        <h4>Driver License</h4>
+                                        <p>Expires in -475 days</p>
+                                    </div>
+                                    <button class="renew-btn">Renew</button>
+                                </li>
+                                <li class="document-item">
+                                    <div class="document-icon expiring">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                    <div class="document-details">
+                                        <h4>Car Insurance</h4>
+                                        <p>Expires in -515 days</p>
+                                    </div>
+                                    <button class="renew-btn">Renew</button>
+                                </li>
+                            </ul>
+                            <div class="card-footer">
+                                <a href="documents.html" class="view-all">View All Documents</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>
