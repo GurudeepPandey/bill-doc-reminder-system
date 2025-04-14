@@ -1,4 +1,5 @@
 import express from "express";
+import { isLoggedIn } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -11,22 +12,22 @@ router.get("/login", (req, res) => {
 router.get("/register", (req, res) => {
     res.render("pages/register");
 })
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", isLoggedIn, (req, res) => {
     res.render("pages/dashboard");
 })
-router.get("/bills", (req, res) => {
+router.get("/bills", isLoggedIn, (req, res) => {
     res.render("pages/bills");
 })
-router.get("/documents", (req, res) => {
+router.get("/documents", isLoggedIn, (req, res) => {
     res.render("pages/documents");
 })
-router.get("/profile", (req, res) => {
+router.get("/profile", isLoggedIn, (req, res) => {
     res.render("pages/profile");
 })
-router.get("/add-bill", (req, res) => {
+router.get("/add-bill", isLoggedIn, (req, res) => {
     res.render("pages/add-bill");
 })
-router.get("/add-document", (req, res) => {
+router.get("/add-document", isLoggedIn, (req, res) => {
     res.render("pages/add-document");
 })
 

@@ -53,32 +53,36 @@ const registerUser = async (req, res) => {
 
         // send token as email to user
         const transporter = nodemailer.createTransport({
-            host: process.env.BREVO_HOST,
-            port: process.env.BREVO_PORT,
+            host: process.env.GMAIL_HOST,
+            port: process.env.GMAIL_PORT,
             secure: false,
             auth: {
-                user: process.env.BREVO_USERNAME,
-                pass: process.env.BREVO_PASSWORD
+                user: process.env.GMAIL_USERNAME,
+                pass: process.env.GMAIL_PASSWORD
             }
         });
         const mailOptions = {
-            from: process.env.BREVO_SENDEREMAIL, // sender address
+            // from: process.env.MAILERSEND_SENDEREMAIL, // sender address
             to: user.email, // list of receivers
             subject: "Verify your email", // Subject line
-            text: `Please click the following link to verify your email: ${process.env.BASE_URL}/api/v1/users/verify/${token}`, // plain text body
-            html: "<b>Hello world?</b>", // html body
+            text: ` ${process.env.BASE_URL}/api/v1/users/verify/${token}`, // plain text body
+            html: `<p>Please click the following link to verify your email: <a href="${process.env.BASE_URL}/api/v1/user/verify/${token}">Verify Email</a></p>`, // html body
         }
         console.log("new email: ", user.email);
+
+
         await transporter.sendMail(mailOptions);
+
 
         // send success status to user
         return res.status(200).json({
-            message: "User created successfully"
+            message: "User created successfully, check your email to verify your account",
+            success: true
         })
 
     } catch (error) {
         res.status(500).json({
-            message: "User not registered due to code error",
+            message: "User not registered due to server internal error",
             error,
             success: false
         })
@@ -92,23 +96,19 @@ const verifyUser = async (req, res) => {
 
     // validate token
     if (!token) {
-        return res.status(400).json({
-            message: "Invalid Token"
-        })
+        res.render("pages/email-verify", { message: "Invalid Token" })
     }
 
     // find user in database based on token
-    const user = await User.findOne({ verificationToken: token })
+    const user = await User.findOne({ emailVerificationToken: token })
 
     // if not
     if (!user) {
-        return res.status(400).json({
-            message: "Invalid Token"
-        })
+        res.render("pages/email-verify", { message: "Token Expired or User not found"})
     }
 
     // set isVerified feild to true
-    user.isVerified = true;
+    user.isEmailVerified = true;
 
     // remove verificationToken feild
     user.emailVerificationToken = null;
@@ -117,9 +117,7 @@ const verifyUser = async (req, res) => {
     await user.save();
 
     // return response
-    return res.status(200).json({
-        message: "User verified successfully"
-    })
+    res.render("pages/email-verify", { message: "Email verified successfully"})
 }
 
 const loginUser = async (req, res) => {
@@ -127,7 +125,8 @@ const loginUser = async (req, res) => {
 
     if (!email || !password) {
         return res.status(400).json({
-            message: "All feilds are required"
+            message: "All feilds are required",
+            success: false
         })
     }
 
@@ -135,16 +134,18 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({ email })
         if (!user) {
             return res.status(400).json({
-                message: "user not exist"
+                message: "user not exist",
+                success: false
             })
         }
 
-        const isMatch = await bcrypt.compare(password, user.password)
-        console.log(isMatch);
-        if (!isMatch) {
+        // const isMatch = await bcrypt.compare(password, user.password)
+        // console.log(isMatch);
+        if (user.password !== password) {
             return res.status(400).json({
                 value: isMatch,
-                message: "Invalid email or password"
+                message: "Invalid email or password",
+                success: false
             });
         }
 
@@ -167,17 +168,12 @@ const loginUser = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Login Successful",
-            jwtToken,
-            user: {
-                id: user._id,
-                name: user.name,
-                role: user.role,
-            }
         })
 
     } catch (error) {
         return res.status(500).json({
-            message: "Error in login functionality"
+            message: "Error in login functionality",
+            success: false
         })
     }
 }
@@ -216,10 +212,11 @@ const logoutUser = async (req, res) => {
         })
         res.status(200).json({
             success: true,
-            message: "Logout successfully"
+            message: "Logout successful"
         })
     } catch (error) {
         return res.status(500).json({
+            success: false,
             message: "Error in logout functionality"
         })
     }

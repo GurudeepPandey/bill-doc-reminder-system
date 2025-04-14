@@ -132,20 +132,53 @@
             transform: translate(-50%, -50%);
             width: 300px;
             height: 250px;
+            padding: 5px;
             background-color: #f5f5f5;
             display: none;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 20px;
             z-index: 9999;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-message {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .close-button {
+            padding: 8px 17px;
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .go-to-mailbox {
+            padding: 8px 17px;
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="popup"></div>
+    <div class="popup">
+        <h2 class="popup-message">user registered</h2>
+        <button class="close-button">Close</button>
+        <a class="go-to-mailbox" href="https://mail.google.com" target="_blank">Go to MailBox</a>
+    </div>
 
     <div class="form-container">
         <div class="form-header">
@@ -232,9 +265,21 @@
     </div>
 
     <script>
+
+        const formCont = document.querySelector(".form-container");
+        const signUpBtn = document.querySelector("#signUpBtn");
+        const popup = document.querySelector(".popup");
+        const popupMessage = document.querySelector(".popup-message");
+
+        document.querySelector(".close-button").addEventListener("click", () => {
+            popup.style.display = "none";
+            formCont.style.display = "block";
+            signUpBtn.innerText = "Sign up";
+            signUpBtn.disabled = false;
+        })
+
         document.getElementById('registerForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value.trim();
@@ -265,6 +310,9 @@
                 passwordError.style.display = 'none';
             }
 
+            signUpBtn.disabled = true;
+            signUpBtn.innerText = 'Signing up..';
+            
             // sending data to backend
             const formData = {
                 name: name,
@@ -281,18 +329,12 @@
                 body: JSON.stringify(formData)
             })
 
+            signUpBtn.innerText += '...';
             const result = await response.json();
 
-            const popup = document.querySelector(".popup");
-            function closePopup() {
-                return () => popup.style.display = 'none';
-            }
-            popup.innerHTML = `
-                <h2>${result.message}</h2>
-                <button onclick="${closePopup()}">Close</button>
-            `;
-
-            popup.style.display = 'block';
+            popupMessage.innerText = result.message;
+            formCont.style.display = 'none';
+            popup.style.display = 'flex';
         });
     </script>
 </body>

@@ -143,37 +143,10 @@
             </svg>
         </div>
 
-        <h1>Email Verified Successfully!</h1>
+        <h1> <%= locals.message %></h1>
         <p>Thank you for verifying your email address. Your account is now active and you can access all features of our platform.</p>
         
-        <a href="login.html" class="button">Sign In to Your Account</a>
-
-        <div class="additional-info">
-            <p>Didn't request this verification?</p>
-            <p>If you didn't create an account, please <a href="#" class="contact-link">contact our support team</a>.</p>
-        </div>
+        <a href="/login" class="button">Sign In to Your Account</a>
     </div>
-
-    <script>
-        // Auto-redirect after 30 seconds (optional)
-        // setTimeout(() => {
-        //     window.location.href = 'login.html';
-        // }, 30000);
-
-        // You can also add URL parameter handling to show custom messages
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const email = urlParams.get('email');
-            
-            // If email parameter exists, show it in the message
-            if (email) {
-                const paragraphs = document.querySelectorAll('p');
-                if (paragraphs.length > 0) {
-                    paragraphs[0].innerHTML = `Thank you for verifying <strong>${email}</strong>. Your account is now active and you can access all features of our platform.`;
-                }
-            }
-        });
-    </script>
 </body>
 </html>

@@ -115,6 +115,9 @@
         .form-footer a:hover {
             text-decoration: underline;
         }
+        .api-message {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -147,26 +150,52 @@
                 </div>
             </div>
 
-            <button type="submit" class="button">Sign in</button>
+            <button type="submit" class="button" id="signInBtn">Sign in</button>
         </form>
 
         <div class="form-footer">
             <p>Don't have an account? <a href="/register">Sign up</a></p>
+            <p class="api-message"></p>
         </div>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const apiMessage = document.querySelector('.api-message');
+        const signInBtn = document.querySelector('#signInBtn');
+        console.log(signInBtn)
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Here you would typically send this data to your server
-            console.log('Login attempt with:', { email, password });
-            
-            // For demo purposes, show an alert
-            alert('Login form submitted!\nEmail: ' + email);
+            // sending data to backend
+            signInBtn.innerText += '...';
+            signInBtn.disabled = true;
+
+            const formData = {
+                email: email,
+                password: password
+            }
+
+            const response = await fetch('/api/v1/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+
+            const result = await response.json();
+
+            apiMessage.innerText = result.message;
+            if(result.success) {
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 500);
+            }
+            signInBtn.innerText = 'Sign in';
+            signInBtn.disabled = false;
         });
     </script>
 </body>

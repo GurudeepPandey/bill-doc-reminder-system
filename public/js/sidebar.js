@@ -17,4 +17,16 @@ document.addEventListener('DOMContentLoaded', function () {
         sidebarNav.classList.toggle('active');
         sidebarFooter.classList.toggle('active');
     })
+
+    const logoutBtn = document.querySelector('.logout-btn');
+    logoutBtn.addEventListener('click', async () => {
+        const response = await fetch('/api/v1/user/logout');
+        const result = await response.json();
+
+        if (!result.success) {
+            alert(result.message);
+            return;
+        }
+        window.location.href = '/';
+    })
 });
