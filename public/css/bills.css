@@ -139,3 +139,92 @@
         margin-top: 3rem;
     }
 }
+
+.bill-menu-options {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 0.5rem;
+    display: none;
+    z-index: 1;
+}
+
+.bill-menu-options button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius);
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+.bill-menu-options button:hover {
+    background-color: var(--light-color);
+}
+
+.edit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 10px;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.save-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 4px 6px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    margin-top: 2px;
+}
+
+.save-btn:hover {
+    background-color: var(--primary-hover);
+}

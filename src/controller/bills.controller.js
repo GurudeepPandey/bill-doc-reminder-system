@@ -6,7 +6,7 @@ const addBill = async (req, res) => {
         const { billName, amount, dueDate, category, recurringPeriod } = req.body;
         const userId = req.user.id;
 
-        if(!billName || !amount || !dueDate || !category || !recurringPeriod) {
+        if (!billName || !amount || !dueDate || !category || !recurringPeriod) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -42,13 +42,20 @@ const addBill = async (req, res) => {
     }
 };
 
-const markAsPaid = async (req, res) => {
+const updatebill = async (req, res) => {
     try {
-      await Bill.findByIdAndUpdate(req.params.id, { dueDate: new Date() }); // Optional: you might want to add a "paid" flag or move it to a paid section
-      res.sendStatus(200);
-    } catch (err) {
-      res.status(500).json({ message: "Error marking bill as paid" });
-    }
-  };
+        // const { billName, amount, dueDate, category, recurringPeriod } = req.body;
 
-export { addBill };
+        const updated = await Bill.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json({
+            success: true,
+            message: "Bill updated successfully",
+            data: updated
+        });
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+}
+
+export { addBill, updatebill};
