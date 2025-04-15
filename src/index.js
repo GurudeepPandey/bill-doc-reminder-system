@@ -9,6 +9,7 @@ import expressLayouts from "express-ejs-layouts";
 import connectDB from "./utils/db.js";
 import pagesRoutes from "./routes/pages.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import billsRoutes from "./routes/bills.routes.js";
 
 dotenv.config();
 
@@ -45,6 +46,10 @@ app.use("/", pagesRoutes);
 
 // user routes
 app.use("/api/v1/user", userRoutes);
+
+
+// bills routes
+app.use("/api/v1/bills", billsRoutes);
 
 
 app.listen(port, () => {

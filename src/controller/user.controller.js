@@ -38,7 +38,7 @@ const registerUser = async (req, res) => {
         })
         console.log("New User: ", user)
         if (!user) {
-            return req.status(400).json({
+            return res.status(400).json({
                 message: "User not created due to database error"
             })
         }

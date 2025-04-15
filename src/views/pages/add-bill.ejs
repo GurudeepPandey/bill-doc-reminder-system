@@ -186,9 +186,12 @@
                 <select id="category" required>
                     <option value="" disabled selected>Select a category</option>
                     <option value="utilities">Utilities</option>
-                    <option value="rent">Rent/Mortgage</option>
+                    <option value="rent">Rent/Housing</option>
                     <option value="insurance">Insurance</option>
                     <option value="subscription">Subscription</option>
+                    <option value="subscription">Healthcare</option>
+                    <option value="subscription">Entertainment</option>
+                    <option value="subscription">Loan</option>
                     <option value="other">Other</option>
                 </select>
             </div>
@@ -196,14 +199,15 @@
             <div class="form-group">
                 <label for="recurringPeriod">Recurring Period</label>
                 <select id="recurringPeriod" required>
-                    <option value="monthly">Monthly</option>
                     <option value="once">One-time</option>
                     <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
                     <option value="quarterly">Quarterly</option>
-                    <option value="yearly">Yearly</option>
+                    <option value="quarterly">Semi-annually</option>
+                    <option value="yearly">Annually</option>
                 </select>
             </div>
-
+            <p class="error-message"></p>
             <div class="button-container">
                 <button type="button" class="button cancel-button" onclick="window.location.href='/bills'">Cancel</button>
                 <button type="submit" class="button submit-button">Add Bill</button>
@@ -212,6 +216,9 @@
     </div>
 
     <script>
+
+        const errorElement = document.querySelector('.error-message');
+
         // Set default date to today
         document.addEventListener('DOMContentLoaded', function() {
             const today = new Date();
@@ -220,7 +227,7 @@
         });
 
         // Form submission
-        document.getElementById('billForm').addEventListener('submit', function(e) {
+        document.getElementById('billForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const billName = document.getElementById('billName').value;
@@ -229,11 +236,37 @@
             const category = document.getElementById('category').value;
             const recurringPeriod = document.getElementById('recurringPeriod').value;
             
-            // Here you would typically send this data to your server
-            console.log('Bill added:', { billName, amount, dueDate, category, recurringPeriod });
-            
-            // For demo purposes, show an alert
-            alert('Bill form submitted!\nBill: ' + billName + '\nAmount: $' + amount);
+            // Validation on form submission
+            if (!billName || !amount || !dueDate || !category || !recurringPeriod) {
+                alert('Please fill in all the required fields.');
+                return;
+            }
+
+            // Create a new bill object
+            const newBill = {
+                billName: billName,
+                amount: amount,
+                dueDate: dueDate,
+                category: category,
+                recurringPeriod: recurringPeriod
+            };
+
+            // Send a POST request to add the bill
+            const response = await fetch('/api/v1/bills/addbill', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newBill)
+            })
+
+            const data = await response.json();
+            console.log(data);
+            if (data.success) {
+                alert('Bill added successfully!');
+                window.location.href = '/bills';
+            }
+            errorElement.textContent = data.message
         });
     </script>
 </body>

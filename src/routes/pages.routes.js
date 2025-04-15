@@ -1,5 +1,6 @@
 import express from "express";
 import { isLoggedIn } from "../middleware/auth.middleware.js";
+import { showBillsPage } from "../controller/pages.controller.js";
 
 const router = express.Router();
 
@@ -15,9 +16,8 @@ router.get("/register", (req, res) => {
 router.get("/dashboard", isLoggedIn, (req, res) => {
     res.render("pages/dashboard");
 })
-router.get("/bills", isLoggedIn, (req, res) => {
-    res.render("pages/bills");
-})
+router.get("/bills", isLoggedIn, showBillsPage);
+
 router.get("/documents", isLoggedIn, (req, res) => {
     res.render("pages/documents");
 })

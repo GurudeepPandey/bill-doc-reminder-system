@@ -91,10 +91,10 @@
             </div>
 
             <div class="tabs">
-                <button class="tab-btn active" data-tab="all">All (9)</button>
-                <button class="tab-btn" data-tab="upcoming">Upcoming (0)</button>
-                <button class="tab-btn" data-tab="overdue">Overdue (2)</button>
-                <button class="tab-btn" data-tab="paid">Paid (0)</button>
+                <button class="tab-btn active" data-tab="all">All</button>
+                <button class="tab-btn" data-tab="upcoming">Upcoming</button>
+                <button class="tab-btn" data-tab="overdue">Overdue</button>
+                <button class="tab-btn" data-tab="paid">Paid</button>
             </div>
 
             <div class="bills-grid">
@@ -119,8 +119,59 @@
                     </div>
                 </div>
 
-                <!-- Bill Card 2 -->
-                <div class="bill-card">
+                <% const today=new Date(); %>
+                    <% bills.forEach(bill=> {
+                        const dueDate = new Date(bill.dueDate);
+                        let status = "";
+                        let statusClass = "";
+
+                        if (dueDate < today.setHours(0,0,0,0)) { status="Overdue" ; statusClass="overdue" ; } else if
+                            (dueDate.toDateString()===new Date().toDateString()) { status="Due Today" ;
+                            statusClass="due-today" ; } else { status="upcoming" ; statusClass="upcoming" ; } %>
+                            <div class="bill-card">
+                                <div class="bill-card-header">
+                                    <h3>
+                                        <%= bill.billName || "Untitled Bill" %>
+                                    </h3>
+                                    <p>
+                                        <%= bill.category || "Misc" %>
+                                    </p>
+                                    <div class="bill-menu">
+                                        <button class="bill-menu-btn">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="bill-menu-options" style="display: none;">
+                                            <button class="menu-option edit-btn" data-id="<%= bill._id %>">Edit</button>
+                                            <button class="menu-option mark-paid-btn" data-id="<%= bill._id %>">Mark as
+                                                Paid</button>
+                                            <button class="menu-option delete-btn"
+                                                data-id="<%= bill._id %>">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bill-card-body">
+                                    <div class="bill-date">
+                                        <i class="far fa-calendar"></i>
+                                        <span>
+                                            <%= new Date(bill.dueDate).toLocaleDateString('en-US', { month: 'short' ,
+                                                day: 'numeric' , year: 'numeric' }) %>
+                                        </span>
+                                    </div>
+                                    <div class="bill-amount">$ <%= bill.amount.toFixed(2) %>
+                                    </div>
+                                </div>
+                                <div class="bill-card-footer">
+                                    <span class="bill-status <%= statusClass %>">
+                                        <%= status %>
+                                    </span>
+                                </div>
+                            </div>
+                            <% }) %>
+
+
+
+                                <!-- Bill Card 2 -->
+                                <!-- <div class="bill-card">
                     <div class="bill-card-header">
                         <h3>Internet</h3>
                         <p>Utilities</p>
@@ -138,10 +189,10 @@
                     <div class="bill-card-footer">
                         <span class="bill-status overdue">Overdue</span>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Bill Card 3 -->
-                <div class="bill-card">
+                                <!-- Bill Card 3 -->
+                                <!-- <div class="bill-card">
                     <div class="bill-card-header">
                         <h3>Rent</h3>
                         <p>Housing</p>
@@ -159,10 +210,10 @@
                     <div class="bill-card-footer">
                         <span class="bill-status overdue">Overdue</span>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Bill Card 4 -->
-                <div class="bill-card">
+                                <!-- Bill Card 4 -->
+                                <!-- <div class="bill-card">
                     <div class="bill-card-header">
                         <h3>Water Bill</h3>
                         <p>Utilities</p>
@@ -180,10 +231,10 @@
                     <div class="bill-card-footer">
                         <span class="bill-status overdue">Overdue</span>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Bill Card 5 -->
-                <div class="bill-card">
+                                <!-- Bill Card 5 -->
+                                <!-- <div class="bill-card">
                     <div class="bill-card-header">
                         <h3>Phone Bill</h3>
                         <p>Utilities</p>
@@ -201,10 +252,10 @@
                     <div class="bill-card-footer">
                         <span class="bill-status overdue">Overdue</span>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Bill Card 6 -->
-                <div class="bill-card">
+                                <!-- Bill Card 6 -->
+                                <!-- <div class="bill-card">
                     <div class="bill-card-header">
                         <h3>Gym Membership</h3>
                         <p>Lifestyle</p>
@@ -222,10 +273,10 @@
                     <div class="bill-card-footer">
                         <span class="bill-status overdue">Overdue</span>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Bill Card 7 -->
-                <div class="bill-card">
+                                <!-- Bill Card 7 -->
+                                <!-- <div class="bill-card">
                     <div class="bill-card-header">
                         <h3>Credit Card Payment</h3>
                         <p>Financial</p>
@@ -243,10 +294,10 @@
                     <div class="bill-card-footer">
                         <span class="bill-status overdue">Overdue</span>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Bill Card 8 -->
-                <div class="bill-card">
+                                <!-- Bill Card 8 -->
+                                <!-- <div class="bill-card">
                     <div class="bill-card-header">
                         <h3>Netflix Subscription</h3>
                         <p>Entertainment</p>
@@ -264,10 +315,10 @@
                     <div class="bill-card-footer">
                         <span class="bill-status overdue">Overdue</span>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Bill Card 9 -->
-                <div class="bill-card">
+                                <!-- Bill Card 9 -->
+                                <!-- <div class="bill-card">
                     <div class="bill-card-header">
                         <h3>Home Insurance</h3>
                         <p>Insurance</p>
@@ -285,7 +336,7 @@
                     <div class="bill-card-footer">
                         <span class="bill-status overdue">Overdue</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         </main>
 
