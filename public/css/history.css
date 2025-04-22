@@ -1,0 +1,101 @@
+/* Payment History CSS */
+.export-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.export-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.date-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 0.75rem;
+    height: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--card-bg);
+    color: var(--text-muted);
+}
+
+.date-select {
+    border: none;
+    background: none;
+    color: var(--text-color);
+    font-size: 0.875rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.payment-history-table-container {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.payment-history-table {
+    width: 100%;
+
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .payment-history-table-container {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .filter-buttons {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .date-filter {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-history-table th:nth-child(3),
+    .payment-history-table td:nth-child(3),
+    .payment-history-table th:nth-child(4),
+    .payment-history-table td:nth-child(4) {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .payment-history-table th:nth-child(2),
+    .payment-history-table td:nth-child(2) {
+        display: none;
+    }
+    
+    .pagination {
+        flex-wrap: wrap;
+    }
+}
+.history-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.history-list li {
+    list-style-type: none;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

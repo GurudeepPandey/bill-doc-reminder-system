@@ -165,24 +165,26 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.addEventListener('click', async () => {
             const billId = btn.getAttribute('data-id');
             console.log("Mark as paid billId: ", billId);
+            const confirmDelete = confirm("Are you sure you paid this bill?");
+            if (!confirmDelete) return;
 
-            // try {
-            //     const response = await fetch(`api/v1/bills/mark-paid/${billId}`, {
-            //         method: 'PUT',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //         }
-            //     });
-            //     const result = await response.json();
-            //     if (result.success) {
-            //         location.reload(); // Reload to update UI
-            //     } else {
-            //         alert('Failed to mark as paid');
-            //     }
-            // } catch (err) {
-            //     console.error(err);
-            //     alert('Error marking bill as paid');
-            // }
+            try {
+                const response = await fetch(`api/v1/bills/mark-paid/${billId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                const result = await response.json();
+                if (result.success) {
+                    location.reload(); // Reload to update UI
+                } else {
+                    alert('Failed to mark as paid');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error marking bill as paid');
+            }
         });
     });
 
@@ -194,23 +196,23 @@ document.addEventListener('DOMContentLoaded', function () {
             const confirmDelete = confirm("Are you sure you want to delete this bill?");
             if (!confirmDelete) return;
 
-            // try {
-            //     const response = await fetch(`api/v1/bills/delete/${billId}`, {
-            //         method: 'DELETE',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //         }
-            //     });
-            //     const result = await response.json();
-            //     if (result.success) {
-            //         location.reload(); // Refresh to remove deleted bill
-            //     } else {
-            //         alert('Failed to delete bill');
-            //     }
-            // } catch (err) {
-            //     console.error(err);
-            //     alert('Error deleting bill');
-            // }
+            try {
+                const response = await fetch(`api/v1/bills/deletebill/${billId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                const result = await response.json();
+                if (result.success) {
+                    location.reload(); // Refresh to remove deleted bill
+                } else {
+                    alert('Failed to delete bill');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error deleting bill');
+            }
         });
     });
 });

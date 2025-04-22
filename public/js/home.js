@@ -117,6 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(getStartedBtn)
     getStartedBtn.addEventListener("click", () => {
         console.log("clicked")
-        window.location.href = "/register";
+        location.href = "/register";
     })
 });

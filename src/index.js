@@ -5,11 +5,13 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 import expressLayouts from "express-ejs-layouts";
+import cron from "node-cron";
 
 import connectDB from "./utils/db.js";
 import pagesRoutes from "./routes/pages.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import billsRoutes from "./routes/bills.routes.js";
+import { sendReminders } from "./utils/sendReminder.js";
 
 dotenv.config();
 
@@ -50,6 +52,13 @@ app.use("/api/v1/user", userRoutes);
 
 // bills routes
 app.use("/api/v1/bills", billsRoutes);
+
+
+// ⏰ Schedule to run every day at 9:00 AM
+cron.schedule('0 9 * * *', () => {
+    console.log('⏰ Sending daily reminders...');
+    sendReminders();
+  });
 
 
 app.listen(port, () => {

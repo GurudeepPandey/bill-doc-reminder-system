@@ -17,7 +17,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
-                    <img src="./Images/whiteBgColor.png" alt="" width="120px">
+                    <img src="./Images/PaySphereLogo.png" alt="" width="120px">
                 </div>
                 <button class="toggle-sidebar" id="toggleSidebar">
                     <i class="fas fa-bars"></i>
@@ -49,6 +49,12 @@
                             <span>Profile</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="/history">
+                            <i class="fas fa-history"></i>
+                            <span>Payment History</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
@@ -77,8 +83,12 @@
                             alt="User Avatar">
                     </div>
                     <div class="user-details">
-                        <h2>Alex Johnson</h2>
-                        <p>alex@example.com</p>
+                        <h2>
+                            <%= locals.user.name.toUpperCase() %>
+                        </h2>
+                        <p>
+                            <%= locals.user.email %>
+                        </p>
                         <span class="user-badge">Premium User</span>
                     </div>
                 </div>
@@ -92,7 +102,8 @@
                         <p>Sum of all recurring monthly expenses</p>
                     </div>
                     <div class="card-body">
-                        <h2 class="amount">$2380.00</h2>
+                        <h2 class="amount">₹<%= locals.totalBillsAmount %>
+                        </h2>
                     </div>
                 </div>
                 <div class="card">
@@ -101,7 +112,8 @@
                         <p>Bills paid in current month</p>
                     </div>
                     <div class="card-body">
-                        <h2 class="amount">$0.00</h2>
+                        <h2 class="amount">₹<%= locals.paidAmount %>
+                        </h2>
                     </div>
                 </div>
                 <div class="card">
@@ -110,7 +122,8 @@
                         <p>Bills pending payment</p>
                     </div>
                     <div class="card-body">
-                        <h2 class="amount">$1380.00</h2>
+                        <h2 class="amount">₹<%= locals.dueAmount %>
+                        </h2>
                     </div>
                 </div>
             </div>
@@ -120,70 +133,49 @@
                 <!-- Left Column -->
                 <div class="dashboard-column">
                     <!-- Recent Payments -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Recent Payments</h3>
-                            <p>Last 4 bill payments</p>
-                        </div>
-                        <div class="card-body">
-                            <ul class="payment-list">
-                                <li class="payment-item">
-                                    <div class="payment-icon paid">
-                                        <i class="fas fa-dollar-sign"></i>
-                                    </div>
-                                    <div class="payment-details">
-                                        <h4>Electricity Bill</h4>
-                                        <p>2023-11-05</p>
-                                    </div>
-                                    <div class="payment-amount">$120.00</div>
-                                </li>
-                                <li class="payment-item">
-                                    <div class="payment-icon paid">
-                                        <i class="fas fa-dollar-sign"></i>
-                                    </div>
-                                    <div class="payment-details">
-                                        <h4>Internet</h4>
-                                        <p>2023-10-28</p>
-                                    </div>
-                                    <div class="payment-amount">$59.99</div>
-                                </li>
-                                <li class="payment-item">
-                                    <div class="payment-icon paid">
-                                        <i class="fas fa-dollar-sign"></i>
-                                    </div>
-                                    <div class="payment-details">
-                                        <h4>Water Bill</h4>
-                                        <p>2023-10-15</p>
-                                    </div>
-                                    <div class="payment-amount">$45.50</div>
-                                </li>
-                                <li class="payment-item">
-                                    <div class="payment-icon paid">
-                                        <i class="fas fa-dollar-sign"></i>
-                                    </div>
-                                    <div class="payment-details">
-                                        <h4>Phone Bill</h4>
-                                        <p>2023-10-10</p>
-                                    </div>
-                                    <div class="payment-amount">$35.00</div>
-                                </li>
-                            </ul>
-                            <div class="card-footer">
-                                <a href="bills.html" class="view-all">View All Payments</a>
+                    <% if (recentPayments.length> 0) { %>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Recent Payments</h3>
+                                <p>Last few bills you've paid</p>
+                            </div>
+                            <div class="card-body">
+                                <ul class="payment-list">
+                                    <% recentPayments.forEach(bill=> { %>
+                                        <li class="payment-item">
+                                            <div class="payment-icon paid">
+                                                <i class="fas fa-dollar-sign"></i>
+                                            </div>
+                                            <div class="payment-details">
+                                                <h4>
+                                                    <%= bill.billName || "Untitled Bill" %>
+                                                </h4>
+                                                <p>
+                                                    <%= new Date(bill.dueDate).toLocaleDateString('en-US') %>
+                                                </p>
+                                            </div>
+                                            <div class="payment-amount">₹<%= bill.amount.toFixed(2) %>
+                                            </div>
+                                        </li>
+                                        <% }) %>
+                                </ul>
                             </div>
                         </div>
-                    </div>
+                        <% } else { %>
+                            <p>No recent payments found.</p>
+                            <% } %>
 
-                    <!-- Bill Distribution -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Bill Distribution</h3>
-                            <p>Breakdown by category</p>
-                        </div>
-                        <div class="card-body chart-container">
-                            <canvas id="billDistributionChart"></canvas>
-                        </div>
-                    </div>
+
+                                <!-- Bill Distribution -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>Bill Distribution</h3>
+                                        <p>Breakdown by category</p>
+                                    </div>
+                                    <div class="card-body chart-container">
+                                        <canvas id="billDistributionChart"></canvas>
+                                    </div>
+                                </div>
                 </div>
 
                 <!-- Right Column -->
@@ -193,33 +185,37 @@
                         <div class="card-header">
                             <h3>Due Bills</h3>
                             <p>Bills that require payment</p>
-                        </div>
-                        <div class="card-body">
-                            <ul class="bill-list">
-                                <li class="bill-item">
-                                    <div class="bill-icon overdue">
-                                        <i class="fas fa-exclamation-circle"></i>
+                            <% if (dueBills.length> 0) { %>
+                                <div class="card-body">
+                                    <ul class="bill-list">
+                                        <% dueBills.forEach(bill=> {
+                                            const daysOverdue = Math.floor((new Date() - new Date(bill.dueDate)) / (1000
+                                            *
+                                            60 * 60 * 24));
+                                            %>
+                                            <li class="bill-item">
+                                                <div class="bill-icon overdue">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                </div>
+                                                <div class="bill-details">
+                                                    <h4>
+                                                        <%= bill.billName || "Untitled Bill" %>
+                                                    </h4>
+                                                    <p>Overdue by <%= daysOverdue %> day<%= daysOverdue> 1 ? 's' : '' %>
+                                                    </p>
+                                                </div>
+                                                <div class="bill-amount">$<%= bill.amount.toFixed(2) %>
+                                                </div>
+                                            </li>
+                                            <% }) %>
+                                    </ul>
+                                    <div class="card-footer">
+                                        <a href="/bills?filter=due" class="view-all">View All Bills</a>
                                     </div>
-                                    <div class="bill-details">
-                                        <h4>Rent</h4>
-                                        <p>Overdue by 524 days</p>
-                                    </div>
-                                    <div class="bill-amount">$1200.00</div>
-                                </li>
-                                <li class="bill-item">
-                                    <div class="bill-icon overdue">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                    </div>
-                                    <div class="bill-details">
-                                        <h4>Car Insurance</h4>
-                                        <p>Overdue by 310 days</p>
-                                    </div>
-                                    <div class="bill-amount">$180.00</div>
-                                </li>
-                            </ul>
-                            <div class="card-footer">
-                                <a href="bills.html" class="view-all">View All Bills</a>
-                            </div>
+                                </div>
+                                <% } else { %>
+                                    <p>No due bills at the moment.</p>
+                                    <% } %>
                         </div>
                     </div>
 
@@ -231,46 +227,27 @@
                         </div>
                         <div class="card-body">
                             <ul class="bill-list">
-                                <li class="bill-item">
-                                    <div class="bill-icon upcoming">
-                                        <i class="fas fa-calendar"></i>
-                                    </div>
-                                    <div class="bill-details">
-                                        <h4>Electricity</h4>
-                                        <p>Due in 520 days</p>
-                                    </div>
-                                    <div class="bill-amount">$120.00</div>
-                                </li>
-                                <li class="bill-item">
-                                    <div class="bill-icon upcoming">
-                                        <i class="fas fa-calendar"></i>
-                                    </div>
-                                    <div class="bill-details">
-                                        <h4>Rent</h4>
-                                        <p>Due in 524 days</p>
-                                    </div>
-                                    <div class="bill-amount">$1200.00</div>
-                                </li>
-                                <li class="bill-item">
-                                    <div class="bill-icon upcoming">
-                                        <i class="fas fa-calendar"></i>
-                                    </div>
-                                    <div class="bill-details">
-                                        <h4>Internet</h4>
-                                        <p>Due in 510 days</p>
-                                    </div>
-                                    <div class="bill-amount">$60.00</div>
-                                </li>
-                                <li class="bill-item">
-                                    <div class="bill-icon upcoming">
-                                        <i class="fas fa-calendar"></i>
-                                    </div>
-                                    <div class="bill-details">
-                                        <h4>Gym Membership</h4>
-                                        <p>Due in 497 days</p>
-                                    </div>
-                                    <div class="bill-amount">$49.99</div>
-                                </li>
+                                <% upcomingBills.slice(0, 4).forEach(bill=> {
+                                    const dueDate = new Date(bill.dueDate);
+                                    const today = new Date();
+                                    const diffTime = dueDate.getTime() - today.setHours(0, 0, 0, 0);
+                                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                    %>
+                                    <li class="bill-item">
+                                        <div class="bill-icon upcoming">
+                                            <i class="fas fa-calendar"></i>
+                                        </div>
+                                        <div class="bill-details">
+                                            <h4>
+                                                <%= bill.billName || 'Untitled' %>
+                                            </h4>
+                                            <p>Due in <%= diffDays %> day<%= diffDays !==1 ? 's' : '' %>
+                                            </p>
+                                        </div>
+                                        <div class="bill-amount">₹<%= bill.amount.toFixed(2) %>
+                                        </div>
+                                    </li>
+                                    <% }); %>
                             </ul>
                             <div class="card-footer">
                                 <a href="bills.html" class="view-all">View All Upcoming Bills</a>

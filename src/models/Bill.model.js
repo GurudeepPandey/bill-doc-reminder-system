@@ -32,6 +32,10 @@ const billSchema = new mongoose.Schema({
     },
     paymentDate: {
         type: Date
+    },
+    status: {
+        type: String,
+        default: "upcoming"
     }
 }, { timestamps: true });
 

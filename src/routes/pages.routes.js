@@ -1,6 +1,6 @@
 import express from "express";
 import { isLoggedIn } from "../middleware/auth.middleware.js";
-import { showBillsPage } from "../controller/pages.controller.js";
+import { showBillsPage, showDashboardPage, showHistoryPage} from "../controller/pages.controller.js";
 
 const router = express.Router();
 
@@ -13,9 +13,8 @@ router.get("/login", (req, res) => {
 router.get("/register", (req, res) => {
     res.render("pages/register");
 })
-router.get("/dashboard", isLoggedIn, (req, res) => {
-    res.render("pages/dashboard");
-})
+router.get("/dashboard", isLoggedIn, showDashboardPage);
+
 router.get("/bills", isLoggedIn, showBillsPage);
 
 router.get("/documents", isLoggedIn, (req, res) => {
@@ -30,5 +29,6 @@ router.get("/add-bill", isLoggedIn, (req, res) => {
 router.get("/add-document", isLoggedIn, (req, res) => {
     res.render("pages/add-document");
 })
+router.get("/history", isLoggedIn, showHistoryPage);
 
 export default router;

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaySphere - Payment History</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/history.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="./Images/PaySphereLogo.png" alt="" width="120px">
+                </div>
+                <button class="toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="/dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/bills">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Bills</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/documents">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="payment-history.html">
+                            <i class="fas fa-history"></i>
+                            <span>Payment History</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Mobile Top Sidebar -->
+        <div class="top-mobile-sidebar">
+            <div class="logo">
+                <img src="./Images/whiteBgColor.png" alt="" width="120px">
+            </div>
+            <i class="fas fa-bars but"></i>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1>Payment History</h1>
+                    <p>Track and manage your payment transactions</p>
+                </div>
+                <button class="export-btn">
+                    <i class="fas fa-download"></i> Export History
+                </button>
+            </div>
+
+            <div class="search-filter-container">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search payments..." class="search-input">
+                </div>
+            </div>
+
+            <div class="payment-history-table-container">
+                <ul class="history-list">
+                    <% locals.history.forEach(item=> { %>
+                        <li>
+                            <strong>
+                                <%= item.billName %>
+                            </strong> marked as paid on
+                            <%= new Date(item.date).toLocaleDateString() %> —
+                                $<%= item.amount.toFixed(2) %>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/history.js"></script>
+</body>
+
+</html>
